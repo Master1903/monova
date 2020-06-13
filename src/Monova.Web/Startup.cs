@@ -26,10 +26,10 @@ namespace Monova.Web
         {
             //added my dbContext class. Database associated
             services.AddDbContext<MVDContext>(
-                options => options.UseNpgsql("Server=localhost; Port=5432;Database=Monova;User Id=postgres;Password=1234567890")
+                options => options.UseNpgsql("Server=192.168.99.100; Port=5432;Database=postgres;User Id=postgres;Password=mysecretpassword")
             );
 
-            //identity configration settings [my eddit]
+            //identity configration settings [my edit]
             services
                 .AddDefaultIdentity<MVDUser>()
                 .AddEntityFrameworkStores<MVDContext>();
