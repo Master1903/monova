@@ -19,8 +19,8 @@ namespace Monova.Entity
     {
         Request = 0,
         StatusCode = 1,
-        HeaderExist = 3,
-        BodyContains = 4
+        HeaderExist = 2,
+        BodyContains = 3
 
     }
 
