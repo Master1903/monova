@@ -10,5 +10,12 @@ namespace Monova.Entity
         public MVDContext(DbContextOptions<MVDContext> options) : base(options)
         {
         }
+        public DbSet<MVDMonitor> Monitors { get; set; }
+        public DbSet<MVDMonitorStep> MonitorSteps { get; set; }
+        public DbSet<MVDMonitorStepLog> MonitorStepLogs { get; set; }
+
+
+
     }
 }
+
