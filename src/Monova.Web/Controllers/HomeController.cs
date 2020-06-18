@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Monova.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : SecureController
     {
         public IActionResult Index()
         {

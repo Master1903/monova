@@ -1,11 +1,44 @@
-import CounterExample from 'components/counter-example'
-import FetchData from 'components/fetch-data'
-import HomePage from 'components/home-page'
-import About from 'components/about'
+// import HomePage from '@/components/pages/home-page'
+import MonitoringList from '@/components/pages/monitoring/list'
+import MonitoringSave from '@/components/pages/monitoring/save'
+import Forbidden from '@/components/shared/forbidden'
 
 export const routes = [
-  { name: 'home', path: '/', component: HomePage, display: 'Home', icon: 'home' },
-  { name: 'about', path: '/about', component: About, display: 'About Template', icon: 'info' },
-  { name: 'counter', path: '/counter', component: CounterExample, display: 'Counter', icon: 'graduation-cap' },
-  { name: 'fetch-data', path: '/fetch-data', component: FetchData, display: 'Data', icon: 'list' }
+
+  {
+    name: 'monitoring-list',
+    path: '/monitoring/list',
+    component: MonitoringList,
+    display: 'Monitoring',
+    icon: 'chart-line'
+  },
+  {
+    name: 'monitoring-save',
+    path: '/monitoring/save',
+    component: MonitoringSave,
+    display: 'New Monitoring',
+    icon: 'plus'
+  },
+  {
+    name: 'forbidden',
+    path: '/forbidden',
+    display: 'Forbidden',
+    component: Forbidden,
+    hidden: true,
+    icon: 'plus'
+  },
+  // identity sayfaları
+  {
+    name: 'account-view',
+    path: '/Identity/Account/Manage',
+    display: 'Account',
+    icon: 'user-circle'
+  },
+  {
+    name: 'account-subscription',
+    path: '/subscription',
+    display: 'Subscription',
+    icon: 'credit-card'
+  }
+  // </ identity sayfaları
 ]

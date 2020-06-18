@@ -5,15 +5,35 @@ using Microsoft.AspNetCore.Mvc;
 namespace Monova.Web.Controllers
 {
 
-    [Authorize] // Meaning, inside using this controller  via all views 
-    public class MonitoringController : Controller
+    // [Authorize] // Meaning, inside using this controller  via all views 
+    public class MonitoringController : ApiController
     {
 
-        // [Authorize] //This attr will show only for authorized users  
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Get()
         {
-            return View();
+            return Json(
+                new
+                {
+                    Success = true,
+                    Message = "Hi There"
+                });
+
         }
+
+        [HttpPost]
+        public IActionResult Post(object value)
+        {
+            return Forbid();
+            // return Json(
+            //  new
+            //  {
+            //      Success = true,
+            //      Message = value
+            //  });
+        }
+
+
 
     }
 }

@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const bundleOutputDir = './wwwroot/dist'
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
@@ -9,13 +9,13 @@ module.exports = () => {
   console.log('Building for \x1b[33m%s\x1b[0m', process.env.NODE_ENV)
 
   const isDevBuild = !(process.env.NODE_ENV && process.env.NODE_ENV === 'production')
-  
+
   const extractCSS = new MiniCssExtractPlugin({
     filename: 'style.css'
   })
 
   return [{
-    mode: (isDevBuild ? 'development' :'production'  ),
+    mode: (isDevBuild ? 'development' : 'production'),
     stats: { modules: false },
     entry: { 'main': './ClientApp/boot-app.js' },
     resolve: {
@@ -23,11 +23,15 @@ module.exports = () => {
       alias: isDevBuild ? {
         'vue$': 'vue/dist/vue',
         'components': path.resolve(__dirname, './ClientApp/components'),
+        '@': path.resolve(__dirname, './ClientApp'), // my
+        'services': path.resolve(__dirname, './ClientApp/services'), // my
         'views': path.resolve(__dirname, './ClientApp/views'),
         'utils': path.resolve(__dirname, './ClientApp/utils'),
         'api': path.resolve(__dirname, './ClientApp/store/api')
       } : {
         'components': path.resolve(__dirname, './ClientApp/components'),
+        '@': path.resolve(__dirname, './ClientApp'),
+        'services': path.resolve(__dirname, './ClientApp/services'),
         'views': path.resolve(__dirname, './ClientApp/views'),
         'utils': path.resolve(__dirname, './ClientApp/utils'),
         'api': path.resolve(__dirname, './ClientApp/store/api')
