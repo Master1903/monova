@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Monova.Entity;
-using Monova.Web.Providers;
 
 namespace Monova.Web
 {
@@ -81,7 +80,6 @@ namespace Monova.Web
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Simple example with dependency injection for a data provider.
-            services.AddSingleton<IWeatherProvider, WeatherProviderFake>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

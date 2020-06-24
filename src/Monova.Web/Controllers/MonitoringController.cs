@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Monova.Entity;
 
 namespace Monova.Web.Controllers
 {
@@ -22,15 +23,10 @@ namespace Monova.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(object value)
+        public IActionResult Post([FromBody] MVDMonitor value)
         {
-            return Forbid();
-            // return Json(
-            //  new
-            //  {
-            //      Success = true,
-            //      Message = value
-            //  });
+            return Success("Monitoring Save successfully");
+
         }
 
 
