@@ -1,8 +1,9 @@
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Monova.Entity;
 
 namespace Monova.Web.Controllers
@@ -13,14 +14,10 @@ namespace Monova.Web.Controllers
     {
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Json(
-                new
-                {
-                    Success = true,
-                    Message = "Hi There"
-                });
+            var list = await db.Monitors.ToListAsync();
+            return Success(null, list);
 
         }
 
@@ -37,7 +34,7 @@ namespace Monova.Web.Controllers
             db.Add(value);
             var result = await db.SaveChangesAsync();
             if (result > 0)
-                return Success("Monitoring Save successfully", 
+                return Success("Monitoring Save successfully",
                 new
                 {
                     Id = dataObject.Id
