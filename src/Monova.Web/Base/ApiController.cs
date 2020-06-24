@@ -10,7 +10,7 @@ namespace Monova.Web
         public IActionResult Success(string message = default(string), object data = default(object), int code = 200)
         {
             return Ok(
-                new MVReturn()
+                new MVReturn
                 {
                     Success = true,
                     Message = message,
@@ -22,7 +22,7 @@ namespace Monova.Web
 
         public IActionResult Error(string message = default(string), string internalMessage = default(string), string data = default(string), int code = 500)
         {
-            var rv = new MVReturn()
+            var rv = new MVReturn
             {
                 Success = false,
                 Message = message,
