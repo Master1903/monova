@@ -49,7 +49,7 @@
             :key="i"
           >
             <router-link
-              v-if="myRoute.component"
+              v-if="myRoute.component && !myRoute.hidden"
               :to="myRoute.path"
               exact-active-class="active"
               class="nav-link"
@@ -62,7 +62,7 @@
             </router-link>
 
             <a
-              v-else
+              v-else-if="!myRoute.component"
               :href="myRoute.path"
               class="nav-link"
             >
