@@ -5,8 +5,6 @@ namespace Monova.Web
 {
     public class MVReturn
     {
-
-
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // Dönüş değelerinde null varsa gözükmesin
         public string Message { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -31,16 +29,6 @@ namespace Monova.Web
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string InternalMessage { get; set; } // api yi kullanan kullanıcı mesajı
         public string Name { get; set; }
-
     }
-
-    // // Controllerimiz arasında bir API çağrıları yapıyorsak, API nin tpini veriyoruz ve cast gibi işlemlerle uğraşmıyoruz.
-    // public class MVReturn<T>
-    // {
-    //     public string Message { get; set; }
-    //     public int Code { get; set; }
-    //     public object Data { get; set; }
-
-    // }
 
 }
