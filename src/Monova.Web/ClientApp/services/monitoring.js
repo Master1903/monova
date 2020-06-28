@@ -5,6 +5,14 @@ const MonitoringService = {
     if (result.status === 200) { return result.data } else {
     }
   },
+  async getById (id) {
+    if (id) {
+      var result = await http.get(`/api/v1/monitoring/${id}`)
+      if (result.status === 200) {
+        return result.data
+      }
+    }
+  },
   async save (value) {
     var result = await http.post('/api/v1/monitoring', value)
 
