@@ -1,6 +1,7 @@
 // import HomePage from '@/components/pages/home-page'
 import MonitoringList from '@/components/pages/monitoring/list'
 import MonitoringSave from '@/components/pages/monitoring/save'
+import MonitoringView from '@/components/pages/monitoring/view'
 import Forbidden from '@/components/shared/forbidden'
 
 export const routes = [
@@ -39,6 +40,14 @@ export const routes = [
     path: '/subscription',
     display: 'Subscription',
     icon: 'credit-card'
-  }
+  },
   // </ identity sayfaları
+  {
+    name: 'monitoring-view',
+    path: '/monitoring/view/:id',
+    component: MonitoringView,
+    display: 'View Monitoring',
+    hidden: true
+  }
+
 ]
