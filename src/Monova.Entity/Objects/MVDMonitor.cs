@@ -13,7 +13,6 @@ namespace Monova.Entity
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdateTime { get; set; }
-
         public MVDMonitorStatusTypes MonitorStatus { get; set; }
         public MVDTestStatusTypes TestStatus { get; set; }
         public DateTime LastCheckDate { get; set; }
