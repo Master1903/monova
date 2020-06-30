@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Monova.Entity
 {
@@ -14,6 +15,12 @@ namespace Monova.Entity
 
         //Verileri JSON olarak tuttuğumuz alan
         public string Settings { get; set; }
+
+        public MVDSMonitorStepSettingsRequest SettingsAsRequest()
+        {
+            return JsonConvert.DeserializeObject<MVDSMonitorStepSettingsRequest>(Settings);
+
+        }
 
 
     }
