@@ -2,7 +2,7 @@
   <div>
     <div v-if="!modelData">
       <content-placeholders>
-        <content-placeholders-text :lines="20" />
+        <content-placeholders-text :lines="3" />
       </content-placeholders>
     </div>
     <div v-else>
@@ -215,22 +215,19 @@
 <script>
 import service from "@/services/monitoring.js";
 export default {
+  name: "monitoring-view",
   data() {
     return {
-      modelData: null
+      modelData: ""
     };
   },
 
   async mounted() {
     let routeId = this.$route.params.id;
-    if (routeId) {
-      var result = await service.getById(routeId);
-      if (result.data) {
-        setTimeout(() => {
-          this.modelData = result.data;
-        }, 4000);
-      }
-    }
+    if (!routeId) return;
+
+    var result = await service.getById(routeId);
+    this.modelData = result.data || null;
   }
 };
 </script>
