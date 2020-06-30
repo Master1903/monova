@@ -3,6 +3,7 @@ import MonitoringList from '@/components/pages/monitoring/list'
 import MonitoringSave from '@/components/pages/monitoring/save'
 import MonitoringView from '@/components/pages/monitoring/view'
 import Forbidden from '@/components/shared/forbidden'
+import NotFound from '@/components/shared/not-found'
 
 export const routes = [
 
@@ -21,10 +22,26 @@ export const routes = [
     icon: 'plus'
   },
   {
+    name: 'monitoring-edit',
+    path: '/monitoring/edit/:id',
+    component: MonitoringSave,
+    display: 'New Monitoring',
+    icon: 'plus',
+    hidden: true
+  },
+  {
     name: 'forbidden',
     path: '/forbidden',
     display: 'Forbidden',
     component: Forbidden,
+    hidden: true,
+    icon: 'plus'
+  },
+  {
+    name: 'not-found',
+    path: '/Not-Found',
+    display: 'NotFound',
+    component: NotFound,
     hidden: true,
     icon: 'plus'
   },
@@ -44,7 +61,7 @@ export const routes = [
   // </ identity sayfaları
   {
     name: 'monitoring-view',
-    path: '/monitoring/view/:id',
+    path: '/monitoring/view/:id?',
     component: MonitoringView,
     display: 'View Monitoring',
     hidden: true
