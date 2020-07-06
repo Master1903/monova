@@ -16,18 +16,10 @@ export const routes = [
   },
   {
     name: 'monitoring-save',
-    path: '/monitoring/save',
+    path: '/monitoring/save/:id?',
     component: MonitoringSave,
     display: 'New Monitoring',
     icon: 'plus'
-  },
-  {
-    name: 'monitoring-edit',
-    path: '/monitoring/edit/:id',
-    component: MonitoringSave,
-    display: 'New Monitoring',
-    icon: 'plus',
-    hidden: true
   },
   {
     name: 'forbidden',

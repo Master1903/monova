@@ -50,7 +50,7 @@
           >
             <router-link
               v-if="myRoute.component && !myRoute.hidden"
-              :to="myRoute.path"
+              :to="{name:myRoute.name}"
               exact-active-class="active"
               class="nav-link"
             >

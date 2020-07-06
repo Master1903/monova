@@ -31,7 +31,7 @@
 
             <router-link
               class="btn btn-primary btn-sm"
-              :to="{name:'monitoring-edit',params:{ id:item.id}}"
+              :to="{name:'monitoring-save',params:{ id:item.id}}"
             >
               Edit
             </router-link>
