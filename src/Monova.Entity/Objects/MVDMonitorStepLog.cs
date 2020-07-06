@@ -17,11 +17,9 @@ namespace Monova.Entity
 
         public MVDMonitorStepStatusType Status { get; set; }
         public string Log { get; set; } // MonitorStep ile alakalı bir durum olursa buraya yazılacak 
+
+        public int Interval { get; set; }
     }
-    public enum MVDMonitorStepStatusType : short
-    {
-        Fail = 0,
-        Success = 1,
-    }
+
 
 }

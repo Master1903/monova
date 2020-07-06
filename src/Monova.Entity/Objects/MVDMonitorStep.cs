@@ -15,6 +15,9 @@ namespace Monova.Entity
 
         //Verileri JSON olarak tuttuğumuz alan
         public string Settings { get; set; }
+        public int Interval { get; set; }
+        public MVDMonitorStepStatusType Status { get; set; }
+
 
         public MVDSMonitorStepSettingsRequest SettingsAsRequest()
         {
@@ -23,13 +26,24 @@ namespace Monova.Entity
         }
 
 
+
+    }
+    public enum MVDMonitorStepStatusType : short
+    {
+
+        Unknown = 0,
+        Pending = 1,
+        Success = 2,
+        Fail = 3,
+        Warning = 4
     }
     public enum MVDMonitorStepTypes : short
     {
-        Request = 0,
-        StatusCode = 1,
-        HeaderExist = 2,
-        BodyContains = 3
+        Unknown = 0,
+        Request = 1,
+        StatusCode = 2,
+        HeaderExist = 3,
+        BodyContains = 4
 
     }
     public class MVDSMonitorStepSettingsRequest
