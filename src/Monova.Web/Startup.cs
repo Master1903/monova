@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Monova.Entity;
+using Monova.Web.Services;
 
 namespace Monova.Web
 {
@@ -78,6 +79,8 @@ namespace Monova.Web
             // Add framework services.
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSingleton<IMVService, MVSMonitoring>();
 
             // Simple example with dependency injection for a data provider.
         }
