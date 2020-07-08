@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,22 +15,20 @@ namespace Monova.Web.Controllers
     public class MonitoringController : ApiController
     {
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [NonAction]
+        public async Task<object> GetMonitorClientModel(MVDMonitor monitor)
         {
-            var list = await db.Monitors.ToListAsync();
-            return Success(data: list);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute] Guid id)
-        {
-            var monitor = await db.Monitors.FirstOrDefaultAsync(w => w.Id == id && w.UserId == _userId);
-            if (monitor == null)
-                return Error("Monitor not found", code: 404);
-
             var url = string.Empty;
             var monitorStepRequest = await db.MonitorSteps.FirstOrDefaultAsync(x => x.MonitorId == monitor.Id && x.Type == MVDMonitorStepTypes.Request);
+
+            var upTime = 0.00;
+            var downTime = 0.00;
+            var loadTime = 0.00;
+            var totalMonitorTime = 0.00;
+            var downTimePercent = 0.00;
+
+            var loadTimes = new List<double>();
+            var upTimes = new List<double>();
 
             if (monitorStepRequest != null)
             {
@@ -39,16 +38,82 @@ namespace Monova.Web.Controllers
                     url = requestSettings.Url;
             }
 
-            return Success(data: new
+            var week = DateTime.UtcNow.AddDays(-14);
+
+            // son 14 gününde yapılan requestler
+            var logs = await db.MonitorStepLogs
+                                .Where(w => w.MonitorId == monitorStepRequest.Id
+                                            && w.StartDate >= week)
+                                .OrderByDescending(o => o.StartDate)
+                                .ToListAsync();
+            // Loadtime sadece başarılı requestler üzerinden hesaplanıyor
+
+            if (logs.Any(x => x.Status == MVDMonitorStepStatusType.Success))
             {
-                monitor.Id,
-                monitor.LastCheckDate,
-                monitor.LoadTime,
-                monitor.Name,
-                monitor.TestStatus,
-                monitor.UpTime,
-                Url = url
-            });
+                loadTime = logs
+                            .Where(x => x.Status == MVDMonitorStepStatusType.Success)
+                            .Average(x => x.EndDate.Subtract(x.StartDate).TotalMilliseconds);
+
+            }
+
+            foreach (var log in logs)
+            {
+                totalMonitorTime += log.Interval;
+                if (log.Status == MVDMonitorStepStatusType.Success)
+                    loadTimes.Add(log.EndDate.Subtract(log.StartDate).TotalMilliseconds);
+                if (log.Status == MVDMonitorStepStatusType.Fail)
+                    downTime += log.Interval;
+
+            }
+
+            downTimePercent = 100 - (downTime / totalMonitorTime) * 100;
+
+            return
+                new
+                {
+                    monitor.Id,
+                    monitor.LastCheckDate,
+                    monitor.LoadTime,
+                    monitor.Name,
+                    monitor.TestStatus,
+                    Url,
+                    upTime,
+                    upTimes,
+                    downTime,
+                    downTimePercent,
+                    loadTime,
+                    loadTimes,
+                    totalMonitorTime
+                };
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(MVDMonitor monitor)
+        {
+            var list = await db.Monitors.Where(w => w.UserId.Equals(_userId)).ToListAsync();
+
+            var clientList = new List<object>();
+
+            foreach (var monitorItem in list)
+                clientList.Add(await GetMonitorClientModel(monitorItem));
+
+            return Success(data: list);
+
+
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+
+            var monitor = await db.Monitors.FirstOrDefaultAsync(w => w.Id == id && w.UserId == _userId);
+            if (monitor == null)
+                return Error("Monitor not found", code: 404);
+
+
+            return Success(data: await GetMonitorClientModel(monitor));
+
+
         }
 
         [HttpPost]
