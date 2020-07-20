@@ -16,6 +16,9 @@ namespace Monova.Entity
         //Verileri JSON olarak tuttuğumuz alan
         public string Settings { get; set; }
         public int Interval { get; set; }
+
+        public DateTime LastCheckDate { get; set; }
+
         public MVDMonitorStepStatusType Status { get; set; }
 
 
@@ -30,12 +33,13 @@ namespace Monova.Entity
     }
     public enum MVDMonitorStepStatusType : short
     {
-
         Unknown = 0,
         Pending = 1,
-        Success = 2,
-        Fail = 3,
-        Warning = 4
+        Processing = 2,
+        Success = 3,
+        Warning = 4,
+        Fail = 5,
+
     }
     public enum MVDMonitorStepTypes : short
     {
