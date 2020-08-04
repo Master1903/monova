@@ -39,7 +39,7 @@ namespace Monova.Entity
         Success = 3,
         Warning = 4,
         Fail = 5,
-
+        Error = 6, // bizden kaynaklı(kodsal) errorlar
     }
     public enum MVDMonitorStepTypes : short
     {

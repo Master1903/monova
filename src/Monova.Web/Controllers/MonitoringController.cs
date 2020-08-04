@@ -42,10 +42,11 @@ namespace Monova.Web.Controllers
 
             // son 14 gününde yapılan requestler
             var logs = await db.MonitorStepLogs
-                                .Where(w => w.MonitorId == monitorStepRequest.Id
-                                            && w.StartDate >= week)
-                                .OrderByDescending(o => o.StartDate)
-                                .ToListAsync();
+                                   .Where(x => x.MonitorStepId == monitorStepRequest.Id
+                                   && x.StartDate >= week)
+                                   .OrderByDescending(x => x.StartDate)
+                                   .Take(50)
+                                   .ToListAsync();
             // Loadtime sadece başarılı requestler üzerinden hesaplanıyor
 
             if (logs.Any(x => x.Status == MVDMonitorStepStatusType.Success))
@@ -91,7 +92,6 @@ namespace Monova.Web.Controllers
         public async Task<IActionResult> Get(MVDMonitor monitor)
         {
             var list = await db.Monitors.Where(w => w.UserId.Equals(_userId)).ToListAsync();
-
             var clientList = new List<object>();
 
             foreach (var monitorItem in list)
@@ -105,15 +105,15 @@ namespace Monova.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-
-            var monitor = await db.Monitors.FirstOrDefaultAsync(w => w.Id == id && w.UserId == _userId);
+            var monitor = await db.Monitors.Where(w => w.Id == id && w.UserId == _userId).ToListAsync();
             if (monitor == null)
                 return Error("Monitor not found", code: 404);
+            var clientList = new List<object>();
 
+            foreach (var monitorItem in monitor)
+                clientList.Add(await GetMonitorClientModel(monitorItem));
 
-            return Success(data: await GetMonitorClientModel(monitor));
-
-
+            return Success(data: monitor);
         }
 
         [HttpPost]
