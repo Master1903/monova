@@ -7,7 +7,3 @@ This project help you to monitor your websites and send and alert you if somethi
 We will add this information later
 
 ## Test
-
-## Production
-
-https://monova.io
